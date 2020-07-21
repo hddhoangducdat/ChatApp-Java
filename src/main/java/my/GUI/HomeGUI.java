@@ -64,14 +64,26 @@ public class HomeGUI extends JFrame {
 		 modelMessage.addElement(new MessageModel("IOS Programming",  true, "Phan Bao", "20/07/2020"));
 		 modelMessage.addElement(new MessageModel("Windows Phone Programming",  true, "Phan Bao", "20/07/2020"));
 		 modelMessage.addElement(new MessageModel("Android Programming",  true, "Chung Minh Chanh", "20/07/2020"));
+		 modelMessage.addElement(new MessageModel("C/C++ Programming", true, "Hoang Duc Dat", "20/07/2020"));
+		 modelMessage.addElement(new MessageModel("Java Programming",  true, "Nguyen Trong Binh", "20/07/2020"));
+		 modelMessage.addElement(new MessageModel("C# Programming", true, "Hoang Duc Dat", "20/07/2020"));
+		 modelMessage.addElement(new MessageModel("IOS Programming",  true, "Phan Bao", "20/07/2020"));
+		 modelMessage.addElement(new MessageModel("Windows Phone Programming",  true, "Phan Bao", "20/07/2020"));
+		 modelMessage.addElement(new MessageModel("Android Programming",  true, "Chung Minh Chanh", "20/07/2020"));
 
 	     chatBoxList = new JList<>(modelMessage);
 	     chatBoxScrollPane.setViewportView(chatBoxList);
-//	     chatBoxList.setCellRenderer(new MessageRenderer());
+	     chatBoxList.setCellRenderer(new MessageRenderer("Phan Bao"));
 	}
 	
 	public void userRender() {
 		modelUser = new DefaultListModel<String>();
+		modelUser.addElement("Nguyen Trong Binh");
+		modelUser.addElement("Chung Minh Chanh");
+		modelUser.addElement("Phan Bao");
+		modelUser.addElement("Do Dat");
+		modelUser.addElement("Hoang Duc Dat");
+		modelUser.addElement("Hoang Duc Dat");
 		modelUser.addElement("Nguyen Trong Binh");
 		modelUser.addElement("Chung Minh Chanh");
 		modelUser.addElement("Phan Bao");
