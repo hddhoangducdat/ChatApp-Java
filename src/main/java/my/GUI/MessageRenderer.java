@@ -16,20 +16,20 @@ public class MessageRenderer extends JPanel implements ListCellRenderer<MessageM
 	private JLabel userName = new JLabel();
     private JLabel content = new JLabel();
     private JPanel panelText;
+    private String from;
 
     public MessageRenderer(String from) {
         setLayout(new BorderLayout(5, 5));
         panelText = new JPanel(new GridLayout(0, 1));
         panelText.add(userName);
         panelText.add(content);
-        
-       	
-        
+       
+        this.from = from;       
     }
 
     @Override
     public Component getListCellRendererComponent(JList<? extends MessageModel> list, MessageModel message, int index, boolean isSelected, boolean cellHasFocus) {
-    	if (message.getFrom().equalsIgnoreCase("Phan Bao")) {
+    	if (message.getFrom().equalsIgnoreCase(from)) {
     		add(panelText, BorderLayout.EAST);
     		userName.setText(message.getFrom());
     		userName.setForeground(Color.ORANGE);

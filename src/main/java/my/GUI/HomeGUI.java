@@ -8,6 +8,8 @@ import java.awt.Image;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import model.MessageModel;
 
@@ -22,10 +24,14 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 
 public class HomeGUI extends JFrame {
+	
+	String[] userListString = {"Nguyen Trong Binh", "Chung Minh Chanh", "Phan Bao", "Do Dat", "Hoang Duc Dat", "Hoang Duc Dat","Nguyen Trong Binh", "Chung Minh Chanh", "Phan Bao", "Do Dat", "Hoang Duc Dat", "Hoang Duc Dat"};
 
 	private JPanel contentPane;
 	private final JTextField searchField = new JTextField();
@@ -73,23 +79,15 @@ public class HomeGUI extends JFrame {
 
 	     chatBoxList = new JList<>(modelMessage);
 	     chatBoxScrollPane.setViewportView(chatBoxList);
-	     chatBoxList.setCellRenderer(new MessageRenderer("Phan Bao"));
+	     chatBoxList.setCellRenderer(new MessageRenderer("Hoang Duc Dat"));
 	}
 	
 	public void userRender() {
 		modelUser = new DefaultListModel<String>();
-		modelUser.addElement("Nguyen Trong Binh");
-		modelUser.addElement("Chung Minh Chanh");
-		modelUser.addElement("Phan Bao");
-		modelUser.addElement("Do Dat");
-		modelUser.addElement("Hoang Duc Dat");
-		modelUser.addElement("Hoang Duc Dat");
-		modelUser.addElement("Nguyen Trong Binh");
-		modelUser.addElement("Chung Minh Chanh");
-		modelUser.addElement("Phan Bao");
-		modelUser.addElement("Do Dat");
-		modelUser.addElement("Hoang Duc Dat");
-		modelUser.addElement("Hoang Duc Dat");
+		
+		for (String i : userListString) {
+			modelUser.addElement(i);
+		}
 		
 		userList = new JList<>(modelUser);
 		userList.setSelectedIndex(0);
@@ -129,6 +127,53 @@ public class HomeGUI extends JFrame {
 		        	searchField.setText("Search");
 		        }
 		    }
+		});
+	}
+	
+	public void onUserSearch() {
+		searchField.getDocument().addDocumentListener(new DocumentListener() {
+		  @Override
+		  public void changedUpdate(DocumentEvent arg0) {
+			  solve();
+		  }
+		  @Override
+		  public void removeUpdate(DocumentEvent arg0) {
+			  solve();
+		  }
+		  @Override
+		  public void insertUpdate(DocumentEvent arg0) {
+			  solve();
+		  }
+		  
+		  public void solve() {
+			  if (searchField.getText().equalsIgnoreCase("")) {
+				  modelUser.removeAllElements();
+					
+				  for (String i : userListString) {
+						modelUser.addElement(i);
+				  }
+				  
+				  userList = new JList<>(modelUser);
+			  } else {
+				  modelUser.removeAllElements();
+					
+				  for (String i : userListString) {
+					  if (i.contains(searchField.getText())) {					
+						  modelUser.addElement(i);
+					  }
+				  }
+
+				  userList = new JList<>(modelUser);
+			  }
+		  }
+		});
+	}
+	
+	public void userChatAction() {
+		chatField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				chatField.setText("");
+			}
 		});
 	}
 
@@ -215,5 +260,7 @@ public class HomeGUI extends JFrame {
 		userRender();
 		messageRender();
 		FieldPlaceHolder();
+		userChatAction();
+		onUserSearch();
 	}
 }
